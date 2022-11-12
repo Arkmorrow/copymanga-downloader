@@ -4,7 +4,6 @@ import os
 import platform
 import sys
 import time
-from turtle import width
 from typing import Counter
 from retrying import retry
 
@@ -28,6 +27,8 @@ api_headers = {
 
 }
 proxies = {}
+
+Authorization = 1
 
 
 def get_url():
@@ -65,7 +66,7 @@ def get_url():
 
 
 def get_settings():
-    global download_path, proxies, Api_url, Authorization
+    global download_path, proxies, Api_url
     # *初始化第一次初始化的开关（默认为关）
     first_initialization = 0
     if not os.path.isfile("./settings.json"):
@@ -410,7 +411,7 @@ def manga_collection_backup():
         manga_list = manga_search_list["results"]["list"]
         # 输出txt
         print("正在输出到程序目录下的backup.csv....")
-        f = open("./backup.csv", "w", encoding='GBK')
+        f = open("./backup.csv", "w", encoding='utf-8')
         f.write('漫画名,最后更新时间\n')
         for line in manga_list:
             f.write('%s,%s\n' % (line["comic"]["name"],
